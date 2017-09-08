@@ -46,7 +46,6 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         Optional<User> user = userDAO.login(userName, password);
-        user.ifPresent(userContext::setLoggedUser);
 
         resp.sendRedirect(user.map(loggedUser -> "ArticleServlet").orElse("LoginServlet?failed"));
     }

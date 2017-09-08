@@ -41,6 +41,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
     @Transactional
     @Override
+    @CreatesContent
     public Article addArticle(Article newArticle) {
         entityManager.persist(newArticle);
         return newArticle;

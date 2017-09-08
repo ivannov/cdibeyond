@@ -17,6 +17,9 @@ public class UserDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Inject
+    private Event<User> userLoggedEvent;
+
     public Optional<User> login(String userName, String password) {
         TypedQuery<User> query = entityManager.createNamedQuery("findUserByUserNameAndPassword", User.class);
         query.setParameter("userName", userName);
@@ -24,6 +27,7 @@ public class UserDAO {
 
         try {
             User foundUser = query.getSingleResult();
+            userLoggedEvent.fire(foundUser);
             return Optional.of(foundUser);
         } catch (NoResultException nre) {
             return Optional.empty();

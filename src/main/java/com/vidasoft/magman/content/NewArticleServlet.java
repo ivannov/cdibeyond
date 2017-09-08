@@ -21,9 +21,6 @@ public class    NewArticleServlet extends HttpServlet {
     @Inject
     private ArticleDAO articleDAO;
 
-    @Inject
-    private UserContext userContext;
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("jsp/newArticle.jsp").forward(req, resp);
@@ -34,8 +31,7 @@ public class    NewArticleServlet extends HttpServlet {
         String title = req.getParameter("title");
         String content = req.getParameter("content");
 
-        articleDAO.addArticle(new Article(title, content,
-                (Author) userContext.getLoggedUser(), LocalDate.now()));
+        articleDAO.addArticle(new Article(title, content));
 
         resp.sendRedirect("ArticleServlet");
     }

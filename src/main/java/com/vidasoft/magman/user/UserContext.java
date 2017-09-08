@@ -3,6 +3,7 @@ package com.vidasoft.magman.user;
 import com.vidasoft.magman.model.User;
 
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Observes;
 import java.io.Serializable;
 
 @SessionScoped
@@ -16,7 +17,7 @@ public class UserContext implements Serializable {
         return loggedUser;
     }
 
-    public void setLoggedUser(User loggedUser) {
+    public void setLoggedUser(@Observes User loggedUser) {
         this.loggedUser = loggedUser;
     }
 }
